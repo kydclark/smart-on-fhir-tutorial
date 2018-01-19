@@ -29,7 +29,7 @@
           var gender = patient.gender;
           var patid = patient.identifier;  //KC let's add patient id to the screen
           var phone = patient.phone;
-          var email = patient.email;
+          var address = patient.address;
           var rawdob = patient.birthdate;
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
@@ -56,7 +56,7 @@
           p.gender = gender;
           p.patid = patid;  //KC added this
           p.phone = phone;
-          p.email = email;
+          p.address = address;
           p.rawdob = rawdob;
           p.fname = fname;
           p.lname = lname;
@@ -92,8 +92,8 @@
       lname: {value: ''},
       gender: {value: ''},
       patid: {value: ''},    //KC added this
-      phone: {value: 'not found'},
-      email: {value: 'no value'},
+      phone: {value: ''},
+      address: {value: ''},
       rawdob: {value: ''},
       birthdate: {value: ''},
       age: {value: ''},
@@ -162,7 +162,7 @@
     $('#gender').html(p.gender);
     $('#patid').html(p.patid);   //KC added this
     $('#phone').html(p.phone);
-    $('#email').html(p.email);
+    $('#address').html(p.address);
     $('#rawdob').html(p.rawdob);
     $('#birthdate').html(p.birthdate);
     $('#age').html(p.age);
