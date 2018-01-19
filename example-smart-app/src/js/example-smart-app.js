@@ -27,6 +27,7 @@
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
+          var patid = patient.identifier;  //KC let's add patient id to the screen
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
           var monthIndex = dob.getMonth() + 1;
@@ -50,6 +51,7 @@
           var p = defaultPatient();
           p.birthdate = dobStr;
           p.gender = gender;
+          p.patid = patid;  //KC added this
           p.fname = fname;
           p.lname = lname;
           p.age = parseInt(calculateAge(dob));
@@ -83,6 +85,7 @@
       fname: {value: ''},
       lname: {value: ''},
       gender: {value: ''},
+      patid: {value: ''},    //KC added this
       birthdate: {value: ''},
       age: {value: ''},
       height: {value: ''},
@@ -148,6 +151,7 @@
     $('#fname').html(p.fname);
     $('#lname').html(p.lname);
     $('#gender').html(p.gender);
+    $('#patid').html(p.patid);   //KC added this
     $('#birthdate').html(p.birthdate);
     $('#age').html(p.age);
     $('#height').html(p.height);
