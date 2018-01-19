@@ -92,8 +92,8 @@
       lname: {value: ''},
       gender: {value: ''},
       patid: {value: ''},    //KC added this
-      phone: {value: ''},
-      email: {value: ''},
+      phone: {value: 'not found'},
+      email: {value: 'no value'},
       rawdob: {value: ''},
       birthdate: {value: ''},
       age: {value: ''},
