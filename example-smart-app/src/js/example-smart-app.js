@@ -30,7 +30,7 @@
           var patid = patient.identifier;  //KC let's add patient id to the screen
           var phone = patient.phone;
           var address = patient.address;
-          var rawdob = patient.birthdate;
+          var rawdob = patient.birthDate;
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
           var monthIndex = dob.getMonth() + 1;
