@@ -175,6 +175,7 @@
   }
 
   function getContact(pt, type) {
+    console.log(pt.telecom);
     if (pt.telecom) {
       var idx= pt.telecom.findIndex(item=>item.system == type);
       var contact = pt.telecom[idx].value;
