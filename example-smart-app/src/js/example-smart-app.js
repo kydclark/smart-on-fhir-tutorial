@@ -30,8 +30,9 @@
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
           var patid = patient.identifier;
-          var phone = patient.phone;
+          var phone = getContact(patient, "phone");
           var address = getAddress(patient);
+          var email = getContact(patient, "email");
           var rawdob = patient.birthDate;
           var resprate = byCodes('9279-1');
           var heartrate = byCodes('8867-4');
@@ -63,6 +64,7 @@
           p.patid = patid;  //KC added this
           p.phone = phone;
           p.address = address;
+          p.email = email;
           p.rawdob = rawdob;
           p.fname = fname;
           p.lname = lname;
@@ -100,6 +102,7 @@
       patid: {value: ''},    //KC added this
       phone: {value: ''},
       address: {value: ''},
+      email: {value: ''},
       rawdob: {value: ''},
       birthdate: {value: ''},
       age: {value: ''},
@@ -159,12 +162,26 @@
       return undefined;
     }
   }
+
   function getAddress (pt) {
     if (pt.address) {
       var address = pt.address.map(function(address) {
-        return address.line.join(" ") + " " + address.city + ", " + address.state + " " + address.postalCode;
+        return address.line.join(" ") + "  " + address.city + ", " + address.state + " " + address.postalCode;
       });
       return address.join(" / ")
+    } else {
+      return "unknown";
+    }
+  }
+
+  function getContact(pt, type) {
+    if (pt.telecom) {
+      var idx= pt.telecom.findIndex(item=>item.system == type);
+      var contact = pt.telecom[idx].value;
+      if (pt.telecom[idx].use) {
+        contact = contact  + " (" + pt.telecom[idx].use + ")";
+      }
+      return contact;
     } else {
       return "unknown";
     }
@@ -179,6 +196,7 @@
     $('#patid').html(p.patid);   //KC added this
     $('#phone').html(p.phone);
     $('#address').html(p.address);
+    $('#email').html(p.email);
     $('#rawdob').html(p.rawdob);
     $('#birthdate').html(p.birthdate);
     $('#age').html(p.age);
