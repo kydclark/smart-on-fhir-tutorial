@@ -17,7 +17,9 @@
                       code: {
                         $or: ['http://loinc.org|8302-2', 'http://loinc.org|8462-4',
                               'http://loinc.org|8480-6', 'http://loinc.org|2085-9',
-                              'http://loinc.org|2089-1', 'http://loinc.org|55284-4']
+                              'http://loinc.org|2089-1', 'http://loinc.org|55284-4',
+                              'http://loinc.org|9279-1', 'http://loinc.org|8867-4', //respitory rate, heart rate
+                              'http://loinc.org|8310-5', 'http://loinc.org|59408-5'] //temp, O2
                       }
                     }
                   });
@@ -27,10 +29,14 @@
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
-          var patid = patient.id;  //KC let's add patient id to the screen
+          var patid = patient.identifier;
           var phone = patient.phone;
-          var address = patient.address;
+          var address = getAddress(patient);
           var rawdob = patient.birthDate;
+          var resprate = byCodes('9279-1');
+          var heartrate = byCodes('8867-4');
+          var pttemp = byCodes('8310-5');
+          var pulseox = byCodes('59408-5');
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
           var monthIndex = dob.getMonth() + 1;
@@ -151,6 +157,16 @@
           return ob.valueQuantity.value + ' ' + ob.valueQuantity.unit;
     } else {
       return undefined;
+    }
+  }
+  function getAddress (pt) {
+    if (pt.address) {
+      var address = pt.address.map(function(address) {
+        return address.line.join(" ") + " " + address.city + ", " + address.state + " " + address.postalCode;
+      });
+      return address.join(" / ")
+    } else {
+      return "unknown";
     }
   }
 
