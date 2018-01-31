@@ -150,11 +150,6 @@
     $('#fname').html(p.fname);
     $('#lname').html(p.lname);
     $('#gender').html(p.gender);
-    $('#patid').html(p.patid);   //KC added this
-    $('#phone').html(p.phone);
-    $('#address').html(p.address);
-    $('#email').html(p.email);
-    $('#rawdob').html(p.rawdob);
     $('#birthdate').html(p.birthdate);
     $('#age').html(p.age);
     $('#height').html(p.height);
