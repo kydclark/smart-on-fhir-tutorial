@@ -29,15 +29,6 @@
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
-          var patid = patient.identifier;
-          var phone = getContact(patient, "phone");
-          var address = getAddress(patient);
-          var email = getContact(patient, "email");
-          var rawdob = patient.birthDate;
-          var resprate = byCodes('9279-1');
-          var heartrate = byCodes('8867-4');
-          var pttemp = byCodes('8310-5');
-          var pulseox = byCodes('59408-5');
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
           var monthIndex = dob.getMonth() + 1;
@@ -61,11 +52,6 @@
           var p = defaultPatient();
           p.birthdate = dobStr;
           p.gender = gender;
-          p.patid = patid;  //KC added this
-          p.phone = phone;
-          p.address = address;
-          p.email = email;
-          p.rawdob = rawdob;
           p.fname = fname;
           p.lname = lname;
           p.age = parseInt(calculateAge(dob));
@@ -99,11 +85,6 @@
       fname: {value: ''},
       lname: {value: ''},
       gender: {value: ''},
-      patid: {value: ''},    //KC added this
-      phone: {value: ''},
-      address: {value: ''},
-      email: {value: ''},
-      rawdob: {value: ''},
       birthdate: {value: ''},
       age: {value: ''},
       height: {value: ''},
@@ -160,31 +141,6 @@
           return ob.valueQuantity.value + ' ' + ob.valueQuantity.unit;
     } else {
       return undefined;
-    }
-  }
-
-  function getAddress (pt) {
-    if (pt.address) {
-      var address = pt.address.map(function(address) {
-        return address.line.join(" ") + "  " + address.city + ", " + address.state + " " + address.postalCode;
-      });
-      return address.join(" / ")
-    } else {
-      return "unknown";
-    }
-  }
-
-  function getContact(pt, type) {
-    console.log(pt.telecom);
-    if (pt.telecom) {
-      var idx= pt.telecom.findIndex(item=>item.system == type);
-      var contact = pt.telecom[idx].value;
-      if (pt.telecom[idx].use) {
-        contact = contact  + " (" + pt.telecom[idx].use + ")";
-      }
-      return contact;
-    } else {
-      return "unknown";
     }
   }
 
